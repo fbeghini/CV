@@ -1,0 +1,50 @@
+---
+surname: Francesco Beghini
+profilepic: fbeghini.jpg
+position: "PhD Candidate"
+address: "Department of Cellular, Computational and Integrative Biology, University of Trento"
+phone: +39 392 2793343
+email: "francesco.beghini@unitn.it"
+twitter: mariecurie
+github: fbeghini
+linkedin: fbeghini
+headcolor: "000000"
+date: "`r format(Sys.time(), '%B %Y')`"
+output: vitae::awesomecv
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(vitae)
+?cv_document
+```
+
+# Education
+
+```{r}
+library(tibble)
+tribble(
+  ~ Degree, ~ Year, ~ Institution, ~ Where,
+  "PhD in Biomolecular Sciences", "2017-current", "University of Trento", "Trento, Italy",
+  "MSc in Cellular and Molecular Biotechnology", "2015-2017", "University of Trento", "Trento, Italy",
+  "BSc in Computer Science with specialization in Biomolecular Sciences", "2012-2015", "University of Trento", "Trento, Italy",
+  "HS Diploma in Industrial engineer in Computer Science", "2007-2012", "Industrial Technical School Guglielmo Marconi", "Verona, Italy"
+) %>% 
+  detailed_entries(Institution, Year, Degree, Where)
+```
+
+# Publications
+
+```{r}
+scholar::get_publications("q302lwsAAAAJ") %>%
+  distinct(title, .keep_all = TRUE) %>%
+  transmute(bibtype = "Article", author = as.character(author),
+            title = as.character(title),
+            journaltitle = as.character(journal) %>% stringr::str_replace('&',"and"), year, key = row_number()) %>% 
+  arrange(desc(year)) %>% 
+  RefManageR::as.BibEntry() %>% 
+  RefManageR::WriteBib("curie.bib")
+
+bibliography_entries("curie.bib")
+```
+
