@@ -16,35 +16,30 @@ output: vitae::awesomecv
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 library(vitae)
-?cv_document
+library(rorcid)
+library(dplyr)
+myorcid <- '0000-0002-8105-9607'
 ```
 
 # Education
 
 ```{r}
-library(tibble)
-tribble(
-  ~ Degree, ~ Year, ~ Institution, ~ Where,
-  "PhD in Biomolecular Sciences", "2017-current", "University of Trento", "Trento, Italy",
-  "MSc in Cellular and Molecular Biotechnology", "2015-2017", "University of Trento", "Trento, Italy",
-  "BSc in Computer Science with specialization in Biomolecular Sciences", "2012-2015", "University of Trento", "Trento, Italy",
-  "HS Diploma in Industrial engineer in Computer Science", "2007-2012", "Industrial Technical School Guglielmo Marconi", "Verona, Italy"
-) %>% 
+do.call('bind_rows', orcid_educations(myorcid)[[myorcid]]$`affiliation-group`$summaries) %>% 
+  transmute(Institution = `education-summary.organization.name`,
+            Degree = `education-summary.role-title`,
+            Year = glue::glue("{`education-summary.start-date.year.value`} - {`education-summary.end-date.year.value`}", .na = 'current'),
+            Where = stringr::str_c(`education-summary.organization.address.city`, `education-summary.organization.address.country`, sep = ', ')) %>% 
   detailed_entries(Institution, Year, Degree, Where)
 ```
 
 # Publications
 
 ```{r}
-scholar::get_publications("q302lwsAAAAJ") %>%
-  distinct(title, .keep_all = TRUE) %>%
-  transmute(bibtype = "Article", author = as.character(author),
-            title = as.character(title),
-            journaltitle = as.character(journal) %>% stringr::str_replace('&',"and"), year, key = row_number()) %>% 
-  arrange(desc(year)) %>% 
+scholar::get_publications('q302lwsAAAAJ') %>% 
+arrange(desc(year)) %>% 
   RefManageR::as.BibEntry() %>% 
-  RefManageR::WriteBib("curie.bib")
+  RefManageR::WriteBib("fbeghini.bib")
 
-bibliography_entries("curie.bib")
+bibliography_entries("fbeghini.bib")
 ```
 
