@@ -7,7 +7,7 @@ phone: +39 392 2793343
 email: "francesco.beghini@unitn.it"
 twitter: _Zerstorung
 github: fbeghini
-linkedin: fbeghini
+orcid: '0000-0002-8105-9607'
 headcolor: "333333"
 date: "`r format(Sys.time(), '%B %Y')`"
 output: vitae::awesomecv
@@ -26,7 +26,7 @@ myorcid <- '0000-0002-8105-9607'
 
 ```{r}
 tribble(~Date, ~What, ~Descr, ~With,
-        '11/2017 - Current', 'PhD Student at The Laboratory of Computational Metagenomics – CIBIO, UniTN', 'Descrtiption', 'P.I. Dr. Nicola Segata',
+        '11/2017 - Current', 'PhD Student at The Laboratory of Computational Metagenomics – CIBIO, UniTN', 'I developed a novel method called ChocoPhlAn, able to build species-level pangenomic representations without the need of protein annotation or gene clustering by relying on UniRef and a full set of additional modules for updating tools developed by our laboratory', 'P.I. Dr. Nicola Segata',
         '11/2015 - 11/2017', 'Internship at The Laboratory of Computational Metagenomics – CIBIO, UniTN', 'I\'ve collaborated with Prof. Levi Waldron, PhD (CUNY School of Public Health) analyzing the oral microbiome of subjects enrolled in the NYC-HANES II project to assess the effect of smoking on the oral microbiome.', 'P.I. Dr. Nicola Segata',
         '11/2017 - 06/2018', 'Tutor at CIBIO - University of Trento', '"Computer Science" and "Computational Biology" tutor for CIBIO Undergraduate students', 'Prof. Andrea Passerini', 
         '02/2017 - 03/2017', 'Internship at School of Public Health – City University of New York', 'During my one-month internship, I\'ve visited prof. Levi Waldron laboratory at the City University of New York and collaborated with prof. Heidi Jones on the NYC-HANES II oral microbiome smoking project. I also had the opportunity to give several talks with subject the oral microbiome of smokers and a small lesson for PhDs in Epidemiology', 'P.I. Prof. Levi Waldron',
@@ -117,9 +117,12 @@ tribble(~Date, ~Location, ~Authors, ~Title,
 ```
 
 # Languages
-```{r}
+Italian: Mother tongue
 
-```
+Spanish: Bilingual proficiency
+
+English: Professional working proficiency
+
 
 # Skills
 I have a very good experience with Linux and Windows OS’ with a good knowledge of bioinformatic and computational biology tools. 
