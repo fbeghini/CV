@@ -5,10 +5,10 @@ position: "PhD Candidate"
 address: "Department of Cellular, Computational and Integrative Biology, University of Trento"
 phone: +39 392 2793343
 email: "francesco.beghini@unitn.it"
-twitter: mariecurie
+twitter: _Zerstorung
 github: fbeghini
 linkedin: fbeghini
-headcolor: "000000"
+headcolor: "333333"
 date: "`r format(Sys.time(), '%B %Y')`"
 output: vitae::awesomecv
 ---
@@ -18,8 +18,24 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 library(vitae)
 library(rorcid)
 library(dplyr)
+library(tibble)
 myorcid <- '0000-0002-8105-9607'
 ```
+
+# Positions
+
+```{r}
+tribble(~Date, ~What, ~Descr, ~With,
+        '11/2017 - Current', 'PhD Student at The Laboratory of Computational Metagenomics – CIBIO, UniTN', 'Descrtiption', 'P.I. Dr. Nicola Segata',
+        '11/2015 - 11/2017', 'Internship at The Laboratory of Computational Metagenomics – CIBIO, UniTN', 'I\'ve collaborated with Prof. Levi Waldron, PhD (CUNY School of Public Health) analyzing the oral microbiome of subjects enrolled in the NYC-HANES II project to assess the effect of smoking on the oral microbiome.', 'P.I. Dr. Nicola Segata',
+        '11/2017 - 06/2018', 'Tutor at CIBIO - University of Trento', '"Computer Science" and "Computational Biology" tutor for CIBIO Undergraduate students', 'Prof. Andrea Passerini', 
+        '02/2017 - 03/2017', 'Internship at School of Public Health – City University of New York', 'During my one-month internship, I\'ve visited prof. Levi Waldron laboratory at the City University of New York and collaborated with prof. Heidi Jones on the NYC-HANES II oral microbiome smoking project. I also had the opportunity to give several talks with subject the oral microbiome of smokers and a small lesson for PhDs in Epidemiology', 'P.I. Prof. Levi Waldron',
+        '11/2014 - 09/2015', 'Internship at The Laboratory of Computational Metagenomics – CIBIO, UNITN', 'For my bachelor thesis, I investigated the presence, genetics and abundance of the Blastocystis parasite in the human gut microbiome from shotgun metagenomic data', 'P.I. Dr. Nicola Segata',
+        '11/2011 and 11/2012', 'Volunteer at ITIS G. Marconi, Verona', 'Orientation volunteer for incoming middle school students', ''
+) %>% 
+  detailed_entries(what = Descr, when = Date, with = What, where = With)
+```
+
 
 # Education
 
@@ -35,11 +51,79 @@ do.call('bind_rows', orcid_educations(myorcid)[[myorcid]]$`affiliation-group`$su
 # Publications
 
 ```{r}
-scholar::get_publications('q302lwsAAAAJ') %>% 
-arrange(desc(year)) %>% 
-  RefManageR::as.BibEntry() %>% 
-  RefManageR::WriteBib("fbeghini.bib")
-
-bibliography_entries("fbeghini.bib")
+rorcid::works(myorcid) %>% 
+  rowwise %>% 
+  mutate( contributor = stringr::str_c(orcid_works(myorcid, `put-code`)[[myorcid]]$works$contributor[[1]][[1]][,1], collapse =', ')) %>% 
+  ungroup() %>% 
+  transmute ( bibtype = "Article",
+              title = `title.title.value`,
+              author = contributor,
+              journaltitle = stringr::str_replace(`journal-title.value`, '&', ' and '),
+              year = stringr::str_c(`publication-date.year.value`, `publication-date.month.value`, sep = '-'),
+              key = row_number()
+            ) %>% 
+  arrange(desc(year)) %>%
+  # RefManageR::as.BibEntry() %>%
+  # RefManageR::WriteBib("fbeghini.bib")
+  # bibliography_entries("fbeghini.bib")
+  vitae::detailed_entries(what = author, when = year, where = journaltitle, with = title)
 ```
 
+# Submitted papers
+```{r}
+tribble(~Authors, ~Title, ~Journal, 
+        'Michele Tomasi, Francesco Beghini, Ilaria Zanella, Laura Fantappie, Carmela Irene, Luca Frattini, Giulia Masetti, Samine Jessica Isaac, Enrico König, Federica Armanini, Alberto Grandi, Nicola Segata, Guido Grandi', 'Commensal Bifidobacterium strains enhance the efficacy of neo-epitope based cancer vaccines', 'Frontiers in Oncology', 
+'Francesco Asnicar, Francesco Beghini, Claudia Mengoni, Paolo Manghi, Qiyun Zhu, Mattia Bolzan, Fabio Cumbo, Uyen May, Jon G. Sanders, Serena Manara, Moreno Zolfo, Evguenia Kopylova, Edoardo Pasolli, Rob Knight, Siavash Mirarab, Curtis Huttenhower, Nicola Segata', 'Precise phylogenetic analysis of microbial isolates and genomes from metagenomes using PhyloPhlAn2', 'Nature Communications'
+) %>% 
+  detailed_entries(what = Authors, where = Journal, with = Title)
+```
+
+
+# Talks
+
+```{r}
+tribble(
+  ~day, ~Title, ~Location,
+  '02/02/2017', 'Brief lesson given to Epidemiology PhD students about metagenomics, oral microbiome and the NYC-HANES II project', 'City University of New York - New York',
+  '23/02/2017', 'Smoking and the oral microbiome in the New York City Health and Nutrition Examination Study (NYC-HANES II)', 'Columbia University - New York',
+  '22/02/2017', 'Smoking and the oral microbiome in the New York City Health and Nutrition Examination Study (NYC-HANES II)', 'City University of New York - New York',
+  '14/02/2017', 'Smoking and the oral microbiome in the New York City Health and Nutrition Examination Study (NYC-HANES II)', 'Albert Einstein Medical College of Medicine - New York',
+  '13/02/2017', 'Smoking and the oral microbiome in the New York City Health and Nutrition Examination Study (NYC-HANES II)', 'New York University - New York'
+) %>% 
+  detailed_entries(what = Title, when = day, with = Location)
+```
+
+# Awards
+
+```{r}
+tribble(~Date, ~Title, ~Description,
+        '08/2019', 'Prêmio Octavio Frias de Oliveira','',
+        '02/2017', 'Microbiome in Health and Disease – Keystone Symposia, Colorado, USA', 'I was awarded a Keystone Symposia “Future of Science” scholarship and selected for a poster entitled “Large-scale metagenomic analysis of Blastocystis in the human gut revealed high prevalence and association with BMI and archaeal abundance”'
+) %>% 
+  detailed_entries(when = Date, with = Title, what = Description)
+```
+
+# Posters
+```{r}
+tribble(~Date, ~Location, ~Authors, ~Title,
+'06/2018', 'BITS - Turin, Italy', 'Asnicar Francesco, Beghini Francesco, Bolzan Mattia, Manara Serena, Pasolli Edoardo, Mirarab Siavash, Huttenhower Curtis, Segata Nicola','An integrated pipeline for large-scale phylogenetic characterization of genomes and metagenomes',
+'06/2018', 'Leading Edge Conference on Water and Wastewater Technologies - Edinburgh, UK', 'Petrini Serena, Foladori Paola, Beghini Francesco, Armanini Federica, Segata Nicola, Andreottola Gianni', 'Nutrient removal and microbial community analysis of a stable microalgal-bacterial consortium treating real municipal wastewater',
+'02/2017', 'Microbiome in Health and Disease – Keystone Symposia, Colorado, USA', 'Francesco Beghini, Edoardo Pasolli, Duy Tin Truong, Lorenza Putignani, Simone M. Cacciò, Nicola Segata', 'Large-scale metagenomic analysis of Blastocystis in the human gut revealed association with Body Mass Index and archaeal abundance',
+'04/2017', 'ECCMID – Wien, Austria', 'Serena Manara, Edoardo Pasolli, Daniela Dolce, Federica Armanini, Francesco Beghini, Novella Ravenni, Erica Camera, Grazia Dinnella, Paola Gualdi, Michele Schinella, Silvia Campana, Ermanno Baldo, Giovanni Taccetti, Nicola Segata', 'Genomic and metagenomic-based epidemiology and transmission networks of MRSA in two Italian hospitals',
+'07/2017', 'CAMDA2017 – Prague, Czech Republic', 'Moreno Zolfo, Federica Pinto, Francesco Asnicar, Francesco Beghini, Paolo Manghi, Edoardo Pasolli, Adrian Tett and Nicola Segata', 'Strain-level bacterial and viral diversity in the MetaSUB dataset'
+) %>% 
+  detailed_entries(when = Date, with = Title, what = Authors, where = Location)
+  
+```
+
+# Languages
+```{r}
+
+```
+
+# Skills
+I have a very good experience with Linux and Windows OS’ with a good knowledge of bioinformatic and computational biology tools. 
+
+I use Bash, R and Python every day. Other known programming languages are Java, C/C++/C#, JavaScript, PHP, HTML, SQL and .NET framework. 
+
+During the laboratory trainee activities in my BSc and MSc I acquired some molecular biology related skills and during my internship at the Waldron Lab I acquired statistical and basic epidemiology skills.
