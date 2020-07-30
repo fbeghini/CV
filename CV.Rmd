@@ -26,7 +26,7 @@ myorcid <- '0000-0002-8105-9607'
 
 ```{r}
 tribble(~Date, ~What, ~Descr, ~With,
-        '11/2017 - Current', 'PhD Student at The Laboratory of Computational Metagenomics – CIBIO, UniTN', 'I developed a novel method called ChocoPhlAn, able to build species-level pangenomic representations without the need of protein annotation or gene clustering by relying on UniRef and a full set of additional modules for updating tools developed by our laboratory', 'P.I. Dr. Nicola Segata',
+        '11/2017 - Current', 'PhD Student at The Laboratory of Computational Metagenomics – CIBIO, UniTN', 'I developed a novel method called ChocoPhlAn, able to build species-level pangenomic representations without the need of protein annotation or gene clustering by relying on UniRef and a full set of additional modules for updating tools included in the bioBakery suite (Huttenhower Lab and Segata Lab)', 'P.I. Dr. Nicola Segata',
         '11/2015 - 11/2017', 'Internship at The Laboratory of Computational Metagenomics – CIBIO, UniTN', 'I\'ve collaborated with Prof. Levi Waldron, PhD (CUNY School of Public Health) analyzing the oral microbiome of subjects enrolled in the NYC-HANES II project to assess the effect of smoking on the oral microbiome.', 'P.I. Dr. Nicola Segata',
         '11/2017 - 06/2018', 'Tutor at CIBIO - University of Trento', '"Computer Science" and "Computational Biology" tutor for CIBIO Undergraduate students', 'Prof. Andrea Passerini', 
         '02/2017 - 03/2017', 'Internship at School of Public Health – City University of New York', 'During my one-month internship, I\'ve visited prof. Levi Waldron laboratory at the City University of New York and collaborated with prof. Heidi Jones on the NYC-HANES II oral microbiome smoking project. I also had the opportunity to give several talks with subject the oral microbiome of smokers and a small lesson for PhDs in Epidemiology', 'P.I. Prof. Levi Waldron',
@@ -47,6 +47,8 @@ do.call('bind_rows', orcid_educations(myorcid)[[myorcid]]$`affiliation-group`$su
             Where = stringr::str_c(`education-summary.organization.address.city`, `education-summary.organization.address.country`, sep = ', ')) %>% 
   detailed_entries(Institution, Year, Degree, Where)
 ```
+
+\newpage
 
 # Publications
 
@@ -69,11 +71,13 @@ rorcid::works(myorcid) %>%
   vitae::detailed_entries(what = author, when = year, where = journaltitle, with = title)
 ```
 
+\newpage
+
 # Submitted papers
 ```{r}
 tribble(~Authors, ~Title, ~Journal, 
-        'Michele Tomasi, Francesco Beghini, Ilaria Zanella, Laura Fantappie, Carmela Irene, Luca Frattini, Giulia Masetti, Samine Jessica Isaac, Enrico König, Federica Armanini, Alberto Grandi, Nicola Segata, Guido Grandi', 'Commensal Bifidobacterium strains enhance the efficacy of neo-epitope based cancer vaccines', 'Frontiers in Oncology', 
-'Francesco Asnicar, Francesco Beghini, Claudia Mengoni, Paolo Manghi, Qiyun Zhu, Mattia Bolzan, Fabio Cumbo, Uyen May, Jon G. Sanders, Serena Manara, Moreno Zolfo, Evguenia Kopylova, Edoardo Pasolli, Rob Knight, Siavash Mirarab, Curtis Huttenhower, Nicola Segata', 'Precise phylogenetic analysis of microbial isolates and genomes from metagenomes using PhyloPhlAn2', 'Nature Communications'
+        'Francesco Asnicar, Sarah E. Berry, Ana M. Valdes, Long H. Nguyen, Gianmarco Piccinno, David A. Drew, Emily Leeming, Rachel Gibson, Caroline Le Roy, Lucy Francis, Mohsen Mazidi, Olatz Mompeo, Mireia Valles-Colomer, Adrian Tett, Francesco Beghini, Léonard Dubois, Davide Bazzani, Andrew Maltez Thomas, Chloe Mirzayi, Asya Khleborodova, Sehyun Oh, Rachel Hine, Christopher Bonnett, Joan Capdevila Pujol, Serge Danzanvilliers, Ludwig Geistlinger, Levi Waldron, Richard Davies, George Hadjigeorgiou, Jonathan Wolf, José M. Ordovás, Christopher Gardner, Paul W. Franks, Andrew T. Chan, Curtis Huttenhower, Tim D. Spector, Nicola Segata', 'Microbiome connections with host metabolism and habitual diet from the PREDICT 1 metagenomic study', 'Nature Medicine',
+        'Michele Tomasi, Francesco Beghini, Ilaria Zanella, Laura Fantappie, Carmela Irene, Luca Frattini, Giulia Masetti, Samine Jessica Isaac, Enrico König, Federica Armanini, Alberto Grandi, Nicola Segata, Guido Grandi', 'Commensal Bifidobacterium strains enhance the efficacy of neo-epitope based cancer vaccines', 'Frontiers in Oncology'
 ) %>% 
   detailed_entries(what = Authors, where = Journal, with = Title)
 ```
