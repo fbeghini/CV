@@ -82,13 +82,22 @@ tribble(~Authors, ~Title, ~Journal,
   detailed_entries(what = Authors, where = Journal, with = Title)
 ```
 
+# Courses
+```{r}
+tribble(
+  ~day, ~Title, ~Location,
+  '25/9/2019', 'EMBO Practical Course - Bioinformatics and genome analyses. Teaching assistant for the "Shotgun metagenomics" session', 'San Michele all\'Adige, Italy'
+) %>% 
+  detailed_entries(what = Title, when = day, with = Location)
+```
 
 # Talks
 
 ```{r}
 tribble(
   ~day, ~Title, ~Location,
-  '02/02/2017', 'Brief lesson given to Epidemiology PhD students about metagenomics, oral microbiome and the NYC-HANES II project', 'City University of New York - New York',
+  '08/10/2019', 'Large-scale microbial genomics for strain-level metagenomic analysis','University of Trento - Italy',
+  '02/03/2017', 'Brief lesson given to Epidemiology PhD students about metagenomics, oral microbiome and the NYC-HANES II project', 'City University of New York - New York',
   '23/02/2017', 'Smoking and the oral microbiome in the New York City Health and Nutrition Examination Study (NYC-HANES II)', 'Columbia University - New York',
   '22/02/2017', 'Smoking and the oral microbiome in the New York City Health and Nutrition Examination Study (NYC-HANES II)', 'City University of New York - New York',
   '14/02/2017', 'Smoking and the oral microbiome in the New York City Health and Nutrition Examination Study (NYC-HANES II)', 'Albert Einstein Medical College of Medicine - New York',
