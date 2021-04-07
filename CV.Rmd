@@ -1,10 +1,10 @@
 ---
 surname: Francesco Beghini
 profilepic: fbeghini.jpg
-position: "PhD Candidate"
-address: "Department of Cellular, Computational and Integrative Biology, University of Trento"
+position: "PhD"
+#address: "Department of Cellular, Computational and Integrative Biology, University of Trento"
 phone: +39 392 2793343
-email: "francesco.beghini@unitn.it"
+email: "fbeghini@outlook.com"
 twitter: chocophlan
 github: fbeghini
 orcid: '0000-0002-8105-9607'
@@ -39,7 +39,7 @@ do.call('bind_rows', orcid_educations(myorcid)[[myorcid]]$`affiliation-group`$su
 
 ```{r}
 tribble(~Date, ~What, ~Descr, ~With,
-        '11/2017 - Current', 'PhD Student at The Laboratory of Computational Metagenomics – CIBIO, UniTN', 'I developed a novel method called ChocoPhlAn, able to build species-level pangenomic representations without the need of protein annotation or gene clustering by relying on UniRef and a full set of additional modules for updating tools included in the bioBakery suite (Huttenhower Lab and Segata Lab)', 'P.I. Prof. Nicola Segata',
+        '11/2017 - 03/2021', 'PhD Student at The Laboratory of Computational Metagenomics – CIBIO, UniTN', 'I developed a novel method called ChocoPhlAn, able to build species-level pangenomic representations without the need of protein annotation or gene clustering by relying on UniRef and a full set of additional modules for updating tools included in the bioBakery suite (Huttenhower Lab and Segata Lab)', 'P.I. Prof. Nicola Segata',
         '11/2015 - 11/2017', 'Internship at The Laboratory of Computational Metagenomics – CIBIO, UniTN', 'I\'ve collaborated with Prof. Levi Waldron, PhD (CUNY School of Public Health) analyzing the oral microbiome of subjects enrolled in the NYC-HANES II project to assess the effect of smoking on the oral microbiome.', 'P.I. Prof. Nicola Segata',
         '02/2017 - 03/2017', 'Internship at School of Public Health – City University of New York', 'During my one-month internship, I\'ve visited prof. Levi Waldron laboratory at the City University of New York and collaborated with prof. Heidi Jones on the NYC-HANES II oral microbiome smoking project. I also had the opportunity to give several talks with subject the oral microbiome of smokers and a small lesson for PhDs in Epidemiology', 'P.I. Prof. Levi Waldron',
         '11/2014 - 09/2015', 'Internship at The Laboratory of Computational Metagenomics – CIBIO, UNITN', 'For my bachelor thesis, I investigated the presence, genetics and abundance of the Blastocystis parasite in the human gut microbiome from shotgun metagenomic data', 'P.I. Prof. Nicola Segata',
@@ -73,7 +73,6 @@ rorcid::works(myorcid) %>%
   vitae::detailed_entries(what = author, when = year, where = journaltitle, with = title)
 ```
 
-\newpage
 
 <!-- # Submitted papers -->
 <!-- ```{r} -->
