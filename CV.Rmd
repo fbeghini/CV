@@ -1,10 +1,10 @@
 ---
-surname: Francesco Beghini
-profilepic: fbeghini.jpg
-position: "PhD"
-#address: "Department of Cellular, Computational and Integrative Biology, University of Trento"
-phone: +39 392 2793343
-email: "fbeghini@outlook.com"
+surname: Francesco Beghini, PhD
+# profilepic: fbeghini.jpg
+position: "Postdoctoral Associate"
+address: "17 Hillhouse Ave., New Haven, CT, 06511"
+phone: (203) 627 4220
+email: "francesco.beghini@yale.edu"
 twitter: chocophlan
 github: fbeghini
 orcid: '0000-0002-8105-9607'
@@ -20,6 +20,9 @@ library(rorcid)
 library(dplyr)
 library(tibble)
 myorcid <- '0000-0002-8105-9607'
+Sys.setenv(ORCID_TOKEN = '5f86130a-e14f-42f8-92bb-afffa303fcde')
+#x <- orcid_auth()
+#orcid_auth(reauth = TRUE)
 ```
 
 
@@ -39,11 +42,12 @@ do.call('bind_rows', orcid_educations(myorcid)[[myorcid]]$`affiliation-group`$su
 
 ```{r}
 tribble(~Date, ~What, ~Descr, ~With,
-        '11/2017 - 03/2021', 'PhD Student at The Laboratory of Computational Metagenomics – CIBIO, UniTN', 'I developed a novel method called ChocoPhlAn, able to build species-level pangenomic representations without the need of protein annotation or gene clustering by relying on UniRef and a full set of additional modules for updating tools included in the bioBakery suite (Huttenhower Lab and Segata Lab)', 'P.I. Prof. Nicola Segata',
-        '11/2015 - 11/2017', 'Internship at The Laboratory of Computational Metagenomics – CIBIO, UniTN', 'I\'ve collaborated with Prof. Levi Waldron, PhD (CUNY School of Public Health) analyzing the oral microbiome of subjects enrolled in the NYC-HANES II project to assess the effect of smoking on the oral microbiome.', 'P.I. Prof. Nicola Segata',
-        '02/2017 - 03/2017', 'Internship at School of Public Health – City University of New York', 'During my one-month internship, I\'ve visited prof. Levi Waldron laboratory at the City University of New York and collaborated with prof. Heidi Jones on the NYC-HANES II oral microbiome smoking project. I also had the opportunity to give several talks with subject the oral microbiome of smokers and a small lesson for PhDs in Epidemiology', 'P.I. Prof. Levi Waldron',
-        '11/2014 - 09/2015', 'Internship at The Laboratory of Computational Metagenomics – CIBIO, UNITN', 'For my bachelor thesis, I investigated the presence, genetics and abundance of the Blastocystis parasite in the human gut microbiome from shotgun metagenomic data', 'P.I. Prof. Nicola Segata',
-        '11/2011 and 11/2012', 'Volunteer at ITIS G. Marconi, Verona', 'Orientation volunteer for incoming middle school students', ''
+        '04/2022 - Current', 'Postdoctoral Associate at Human Nature Lab, Yale University', '', 'Mentor: Prof. Nicholas Christakis',
+        '09/2021 - 04/2022', 'Postdoctoral Fellow at Segata Lab, UniTN', '', 'Mentor: Prof. Nicola Segata',
+        '05/2021 - 08/2021', 'Consultant for Human Nature Lab, Yale University', '','Mentor: Prof. Nicholas Christakis',
+        '11/2015 - 11/2017', 'Internship at Segata Lab, UniTN', '', 'Mentor: Prof. Nicola Segata',
+        '02/2017 - 03/2017', 'Internship at School of Public Health, CUNY', '', 'Mentor: Prof. Levi Waldron',
+        '11/2014 - 09/2015', 'Internship at Segata Lab, UniTN', '', 'Mentor: Prof. Nicola Segata',
 ) %>% 
   detailed_entries(what = Descr, when = Date, with = What, where = With)
 ```
@@ -55,9 +59,9 @@ tribble(~Date, ~What, ~Descr, ~With,
 # Publications
 
 ```{r}
-rorcid::works(myorcid) %>% 
+rorcid::orcid_works(myorcid)[[myorcid]]$works %>% 
   rowwise %>% 
-  mutate( contributor = stringr::str_c(orcid_works(myorcid, `put-code`)[[myorcid]]$works$contributor[[1]][[1]][,1], collapse =', ')) %>% 
+  mutate( contributor = stringr::str_c(orcid_works(myorcid, put_code = `put-code`)[[myorcid]]$works$contributor[[1]][[1]][,1], collapse =', ')) %>% 
   ungroup() %>% 
   transmute ( bibtype = "Article",
               title = `title.title.value`,
@@ -104,6 +108,7 @@ tribble(
 ```{r}
 tribble(
   ~day, ~Title, ~Location,
+  '21/11/2021', 'Integrating taxonomic, functional, and strain-level profiling of diverse microbial communities with bioBakery 3', 'Microbiome Virtual International Forum',
   '01/10/2020', 'Shotgun metagenomics for species and strain-level analysis', 'Yale University - New Haven',
   '08/10/2019', 'Large-scale microbial genomics for strain-level metagenomic analysis','University of Trento - Italy',
   '02/03/2017', 'Brief lesson given to Epidemiology PhD students about metagenomics, oral microbiome and the NYC-HANES II project', 'City University of New York - New York',
@@ -120,14 +125,16 @@ tribble(
 ```{r}
 tribble(~Date, ~Title, ~Description,
         '08/2019', 'Prêmio Octavio Frias de Oliveira','Co-recipient of the award for the paper "Metagenomic analysis of colorectal cancer datasets identifies cross-cohort microbial diagnostic signatures and a link with choline degradation"',
-        '02/2017', 'Microbiome in Health and Disease – Keystone Symposia, Colorado, USA', 'I was awarded 1,200$ as recipient of the  Keystone Symposia “Future of Science” scholarship and selected for a poster entitled “Large-scale metagenomic analysis of Blastocystis in the human gut revealed high prevalence and association with BMI and archaeal abundance”'
+        '02/2017', 'Microbiome in Health and Disease – Keystone Symposia, Colorado, USA', 'I was awarded 1,200$ as recipient of the Keystone Symposia “Future of Science” scholarship and selected for a poster entitled “Large-scale metagenomic analysis of Blastocystis in the human gut revealed high prevalence and association with BMI and archaeal abundance”'
 ) %>% 
   detailed_entries(when = Date, with = Title, what = Description)
 ```
 
-# Thesis supervisor
+# Student co-supervision
 ```{r}
 tribble(~Date, ~What, ~Descr, ~With,
+'2021-', 'Shivkumar Vishnempet Shridhar (PhD Biomedical Engineering - Yale University', '', 'Supervisor: Prof. Nicholas Christakis',
+'2021-2023', 'Jackson Pullman (BSc Data Science - Yale University)', '','Supervisor: Prof. Nicholas Christakis',
 '2019', 'Eleonora Nigro (MSc Quantitative and Computational Biology - CIBIO)', 'Expanding the genetic diversity of the Elusimicrobia bacterial phylum by multi-environment metagenomic analysis', 'Supervisor: Prof. Nicola Segata'
 ) %>% 
   detailed_entries(what = Descr, when = Date, with = What, where = With)
@@ -141,9 +148,9 @@ tribble(~Date, ~Location, ~Authors, ~Title,
 '02/2017', 'Microbiome in Health and Disease – Keystone Symposia, Colorado, USA', 'Francesco Beghini, Edoardo Pasolli, Duy Tin Truong, Lorenza Putignani, Simone M. Cacciò, Nicola Segata', 'Large-scale metagenomic analysis of Blastocystis in the human gut revealed association with Body Mass Index and archaeal abundance',
 '04/2017', 'ECCMID – Wien, Austria', 'Serena Manara, Edoardo Pasolli, Daniela Dolce, Federica Armanini, Francesco Beghini, Novella Ravenni, Erica Camera, Grazia Dinnella, Paola Gualdi, Michele Schinella, Silvia Campana, Ermanno Baldo, Giovanni Taccetti, Nicola Segata', 'Genomic and metagenomic-based epidemiology and transmission networks of MRSA in two Italian hospitals',
 '07/2017', 'CAMDA2017 – Prague, Czech Republic', 'Moreno Zolfo, Federica Pinto, Francesco Asnicar, Francesco Beghini, Paolo Manghi, Edoardo Pasolli, Adrian Tett and Nicola Segata', 'Strain-level bacterial and viral diversity in the MetaSUB dataset'
-) %>% 
+) %>%
   detailed_entries(when = Date, with = Title, what = Authors, where = Location)
-  
+
 ```
 
 # Languages
@@ -155,8 +162,8 @@ English: Professional working proficiency
 
 
 # Skills
-I have a very good experience with Linux and Windows OS’ with a good knowledge of bioinformatic and several computational biology tools. 
+I have a very good experience with Linux, MacOS, and Windows OS’ with a good knowledge of bioinformatic and several computational biology tools. 
 
-I use Bash, R and Python every day. Other known programming languages are Java, C/C++/C#, JavaScript, PHP, HTML, SQL and .NET framework. 
+I use Bash, R and Python every day. Other known programming languages are Java, C/C++/C#, JavaScript, PHP, SQL and the .NET framework. 
 
 During the laboratory trainee activities in my BSc and MSc I acquired some molecular biology related skills and during my internship at the Waldron Lab I acquired statistical and basic epidemiology skills.
